@@ -3,15 +3,15 @@ import { useState } from "react";
 import "./MyProducts.css";
 
 function MyProducts() {
-
   // Products list
   const [products, setProducts] = useState([
-    // CLEANERS
+    // CLEANSERS
     {
       id: 1,
       name: "Hydrating Facial Cleanser",
       brand: "CeraVe",
       type: "Cleanser",
+       price: 15,
       image: "/products/ceravecleanser.jpeg",
     },
     {
@@ -19,6 +19,7 @@ function MyProducts() {
       name: "Toleriane Purifying Cleanser",
       brand: "La Roche-Posay",
       type: "Cleanser",
+        price: 18,
       image: "/products/cleanser.jpeg",
     },
     {
@@ -26,6 +27,7 @@ function MyProducts() {
       name: "Low pH Good Morning Gel Cleanser",
       brand: "COSRX",
       type: "Cleanser",
+        price: 14,
       image: "/products/cleanser.jpg",
     },
 
@@ -35,6 +37,7 @@ function MyProducts() {
       name: "Daily Moisturizing Lotion",
       brand: "CeraVe",
       type: "Moisturizer",
+        price: 17,
       image: "/products/mostorising.png",
     },
     {
@@ -42,6 +45,7 @@ function MyProducts() {
       name: "Toleriane Double Repair Moisturizer",
       brand: "La Roche-Posay",
       type: "Moisturizer",
+        price: 20,
       image: "/products/laroshemostorising.jpeg",
     },
     {
@@ -49,6 +53,7 @@ function MyProducts() {
       name: "Advanced Snail 92 All In One Cream",
       brand: "COSRX",
       type: "Moisturizer",
+        price: 19,
       image: "/products/laroshe.jpeg",
     },
 
@@ -58,6 +63,7 @@ function MyProducts() {
       name: "Hyaluronic Acid 2% + B5",
       brand: "The Ordinary",
       type: "Serum",
+        price: 12,
       image: "/products/hyaluronic.jpeg",
     },
     {
@@ -65,6 +71,7 @@ function MyProducts() {
       name: "Vitamin C Serum",
       brand: "La Roche-Posay",
       type: "Serum",
+        price: 22,
       image: "/products/vitaminc.jpeg",
     },
     {
@@ -72,6 +79,7 @@ function MyProducts() {
       name: "Niacinamide 10% + Zinc 1%",
       brand: "The Ordinary",
       type: "Serum",
+        price: 11,
       image: "/products/Serumneacenamide.jpeg",
     },
 
@@ -81,6 +89,7 @@ function MyProducts() {
       name: "Hydrating Toner",
       brand: "CeraVe",
       type: "Toner",
+        price: 16,
       image: "/products/TonerCerave.jpeg",
     },
     {
@@ -88,6 +97,7 @@ function MyProducts() {
       name: "Supple Preparation Facial Toner",
       brand: "Klairs",
       type: "Toner",
+        price: 18,
       image: "/products/toner1.jpeg",
     },
     {
@@ -95,67 +105,80 @@ function MyProducts() {
       name: "AHA/BHA Clarifying Toner",
       brand: "COSRX",
       type: "Toner",
+        price: 15,
       image: "/products/toner2.jpeg",
     },
   ]);
 
-  // Search state
+  // Search and category states
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  
+const [cart, setCart] = useState([]);
+  // Add product form states
   const [showForm, setShowForm] = useState(false);
-const [newName, setNewName] = useState("");
-const [newBrand, setNewBrand] = useState("");
-const [newType, setNewType] = useState("Cleanser");
+  const [newName, setNewName] = useState("");
+  const [newBrand, setNewBrand] = useState("");
+  const [newType, setNewType] = useState("Cleanser");
 
+  // Filter products by search and category
   const filteredProducts = products.filter((product) => {
-  const matchesSearch = product.name
-    .toLowerCase()
-    .includes(search.toLowerCase());
+    const matchesSearch = product.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
 
-  const matchesCategory =
-    selectedCategory === "All" ||
-    product.type === selectedCategory;
+    const matchesCategory =
+      selectedCategory === "All" ||
+      product.type === selectedCategory;
 
-  return matchesSearch && matchesCategory;
-});
- function deleteProduct(id) {
-  const isSure = window.confirm(
-    "Are you sure you want to remove this product?"
-  );
+    return matchesSearch && matchesCategory;
+  });
+  const totalPrice = cart.reduce(
+  (total, product) => total + product.price,
+  0
+);
 
-  if (!isSure) {
-    return;
+  // Delete product with confirmation
+  function deleteProduct(id) {
+    const isSure = window.confirm(
+      "Are you sure you want to remove this product?"
+    );
+
+    if (!isSure) {
+      return;
+    }
+
+    const updatedProducts = products.filter(
+      (product) => product.id !== id
+    );
+
+    setProducts(updatedProducts);
   }
-
-  const updatedProducts = products.filter(
-    (product) => product.id !== id
-  );
-
-  setProducts(updatedProducts);
+  function addToCart(product) {
+  setCart([...cart, product]);
 }
-  }
+
+  // Add a new product
   function addProduct() {
-  if (!newName.trim() || !newBrand.trim()) {
-    alert("Please enter product name and brand.");
-    return;
+    if (!newName.trim() || !newBrand.trim()) {
+      alert("Please enter product name and brand.");
+      return;
+    }
+
+    const newProduct = {
+      id: Date.now(),
+      name: newName.trim(),
+      brand: newBrand.trim(),
+      type: newType,
+      image: "/products/mostorising.png",
+    };
+
+    setProducts([...products, newProduct]);
+
+    setNewName("");
+    setNewBrand("");
+    setNewType("Cleanser");
+    setShowForm(false);
   }
-
-  const newProduct = {
-    id: Date.now(),
-    name: newName,
-    brand: newBrand,
-    type: newType,
-    image: "/products/mostorising.png",
-  };
-
-  setProducts([...products, newProduct]);
-
-  setNewName("");
-  setNewBrand("");
-  setNewType("Cleanser");
-  setShowForm(false);
-}
 
   return (
     <div className="products-page">
@@ -174,26 +197,34 @@ const [newType, setNewType] = useState("Cleanser");
             organized in one place.
           </p>
         </div>
-
-    
       </section>
-<div className="category-filter">
-  {["All", "Cleanser", "Moisturizer", "Serum", "Toner"].map((category) => (
-    <button
-      key={category}
-      onClick={() => setSelectedCategory(category)}
-      className={selectedCategory === category ? "active" : ""}
-    >
-      {category}
-    </button>
-  ))}
-</div>
+
+      {/* CATEGORY FILTER */}
+      <div className="category-filter">
+        {[
+          "All",
+          "Cleanser",
+          "Moisturizer",
+          "Serum",
+          "Toner",
+        ].map((category) => (
+          <button
+            type="button"
+            key={category}
+            onClick={() => setSelectedCategory(category)}
+            className={
+              selectedCategory === category ? "active" : ""
+            }
+          >
+            {category}
+          </button>
+        ))}
+      </div>
 
       {/* SEARCH AND COUNT */}
       <section className="products-tools">
-
         <div className="products-count">
-           {products.length} Products
+          {products.length} Products
         </div>
 
         <input
@@ -203,85 +234,116 @@ const [newType, setNewType] = useState("Cleanser");
           onChange={(event) => setSearch(event.target.value)}
         />
 
+        <button
+          type="button"
+          className="add-button"
+          onClick={() => setShowForm(!showForm)}
+        >
+          + Add Product
+        </button>
       </section>
-{showForm && (
-  <div className="add-product-form">
-    <h2>Add New Product</h2>
 
-    <input
-      type="text"
-      placeholder="Product name"
-      value={newName}
-      onChange={(event) => setNewName(event.target.value)}
-    />
+      {/* ADD PRODUCT FORM */}
+      {showForm && (
+        <div className="add-product-form">
+          <h2>Add New Product</h2>
 
-    <input
-      type="text"
-      placeholder="Brand"
-      value={newBrand}
-      onChange={(event) => setNewBrand(event.target.value)}
-    />
+          <input
+            type="text"
+            placeholder="Product name"
+            value={newName}
+            onChange={(event) => setNewName(event.target.value)}
+          />
 
-    <select
-      value={newType}
-      onChange={(event) => setNewType(event.target.value)}
-    >
-      <option value="Cleanser">Cleanser</option>
-      <option value="Moisturizer">Moisturizer</option>
-      <option value="Serum">Serum</option>
-      <option value="Toner">Toner</option>
-      <option value="Sunscreen">Sunscreen</option>
-    </select>
+          <input
+            type="text"
+            placeholder="Brand"
+            value={newBrand}
+            onChange={(event) => setNewBrand(event.target.value)}
+          />
 
-    <button onClick={addProduct}>
-      Save Product
-    </button>
-  </div>
-)}
+          <select
+            value={newType}
+            onChange={(event) => setNewType(event.target.value)}
+          >
+            <option value="Cleanser">Cleanser</option>
+            <option value="Moisturizer">Moisturizer</option>
+            <option value="Serum">Serum</option>
+            <option value="Toner">Toner</option>
+            <option value="Sunscreen">Sunscreen</option>
+          </select>
 
+          <button type="button" onClick={addProduct}>
+            Save Product
+          </button>
+        </div>
+      )}
+{/* SHOPPING CART */}
+<section className="cart-summary">
+  <h2>My Shopping Cart </h2>
+
+  <p>Items in cart: {cart.length}</p>
+
+  <h3>
+    Total: ${totalPrice.toFixed(2)}
+  </h3>
+</section>
       {/* PRODUCTS */}
       <section className="products-grid">
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <div
+              className="product-card"
+              key={product.id}
+            >
+              {/* PRODUCT IMAGE */}
+              <div className="product-image">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                />
+              </div>
 
-        {filteredProducts.map((product) => (
+              {/* PRODUCT INFORMATION */}
+              <div className="product-info">
+                <span className="product-type">
+                  {product.type}
+                </span>
 
-          <div
-            className="product-card"
-            key={product.id}
-          >
+                <h2>{product.name}</h2>
 
-            {/* PRODUCT IMAGE */}
-            <div className="product-image">
-              <img
-                src={product.image}
-                alt={product.name}
-              />
+                <p>{product.brand}</p>
+
+                <p>{product.brand}</p>
+
+<p className="product-price">
+
+  ${product.price.toFixed(2)}
+</p>
+
+<div className="product-actions">
+  <button
+    type="button"
+    className="remove-button"
+    onClick={() => deleteProduct(product.id)}
+  >
+    Remove
+  </button>
+
+  <button
+    type="button"
+    className="cart-button"
+    onClick={() => addToCart(product)}
+  >
+    Add to Cart
+  </button>
+</div>
+              </div>
             </div>
-
-
-            {/* PRODUCT INFORMATION */}
-            <div className="product-info">
-
-              <span className="product-type">
-                {product.type}
-              </span>
-
-              <h2>{product.name}</h2>
-
-              <p>{product.brand}</p>
-
-              <button
-                className="remove-button"
-                onClick={() => deleteProduct(product.id)}
-              >
-                🗑 Remove
-              </button>
-
-            </div>
-
-          </div>
-
-        ))}
-
+          ))
+        ) : (
+          <p>No products found.</p>
+        )}
       </section>
 
     </div>
