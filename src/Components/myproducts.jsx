@@ -119,13 +119,21 @@ const [newType, setNewType] = useState("Cleanser");
 
   return matchesSearch && matchesCategory;
 });
-  // Remove a product
-  function deleteProduct(id) {
-    const updatedProducts = products.filter(
-      (product) => product.id !== id
-    );
+ function deleteProduct(id) {
+  const isSure = window.confirm(
+    "Are you sure you want to remove this product?"
+  );
 
-    setProducts(updatedProducts);
+  if (!isSure) {
+    return;
+  }
+
+  const updatedProducts = products.filter(
+    (product) => product.id !== id
+  );
+
+  setProducts(updatedProducts);
+}
   }
   function addProduct() {
   if (!newName.trim() || !newBrand.trim()) {
