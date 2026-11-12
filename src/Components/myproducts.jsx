@@ -139,20 +139,27 @@ const [cart, setCart] = useState([]);
 
   // Delete product with confirmation
   function deleteProduct(id) {
-    const isSure = window.confirm(
-      "Are you sure you want to remove this product?"
-    );
+  const isSure = window.confirm(
+    "Are you sure you want to remove this product?"
+  );
 
-    if (!isSure) {
-      return;
-    }
-
-    const updatedProducts = products.filter(
-      (product) => product.id !== id
-    );
-
-    setProducts(updatedProducts);
+  if (!isSure) {
+    return;
   }
+
+  const updatedProducts = products.filter(
+    (product) => product.id !== id
+  );
+
+  setProducts(updatedProducts);
+
+  // Remove the product from the cart too
+  const updatedCart = cart.filter(
+    (product) => product.id !== id
+  );
+
+  setCart(updatedCart);
+}
   function addToCart(product) {
   setCart([...cart, product]);
 }
