@@ -202,13 +202,18 @@ const [phoneNumber, setPhoneNumber] = useState("");
     return;
   }
 
-  alert(
-    `Order placed successfully!\n
+  const successMessage =
+  paymentMethod === "Card"
+    ? "Demo Card Payment Successful!"
+    : "Order placed successfully! Pay on delivery.";
+
+alert(
+  `${successMessage}\n
 Payment: ${paymentMethod}\n
 Address: ${deliveryAddress}\n
 Phone: ${phoneNumber}\n
 Total: $${totalPrice.toFixed(2)}`
-  );
+);
 
   setCart([]);
   setDeliveryAddress("");
