@@ -108,11 +108,17 @@ const [newName, setNewName] = useState("");
 const [newBrand, setNewBrand] = useState("");
 const [newType, setNewType] = useState("Cleanser");
 
-  // Filter products according to search
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+  const matchesSearch = product.name
+    .toLowerCase()
+    .includes(search.toLowerCase());
 
+  const matchesCategory =
+    selectedCategory === "All" ||
+    product.type === selectedCategory;
+
+  return matchesSearch && matchesCategory;
+});
   // Remove a product
   function deleteProduct(id) {
     const updatedProducts = products.filter(
@@ -163,7 +169,17 @@ const [newType, setNewType] = useState("Cleanser");
 
     
       </section>
-
+<div className="category-filter">
+  {["All", "Cleanser", "Moisturizer", "Serum", "Toner"].map((category) => (
+    <button
+      key={category}
+      onClick={() => setSelectedCategory(category)}
+      className={selectedCategory === category ? "active" : ""}
+    >
+      {category}
+    </button>
+  ))}
+</div>
 
       {/* SEARCH AND COUNT */}
       <section className="products-tools">
