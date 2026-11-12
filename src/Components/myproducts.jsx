@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./MyProducts.css";
 
 function MyProducts() {
+
   // Products list
   const [products, setProducts] = useState([
     // CLEANERS
@@ -100,6 +101,12 @@ function MyProducts() {
 
   // Search state
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  
+  const [showForm, setShowForm] = useState(false);
+const [newName, setNewName] = useState("");
+const [newBrand, setNewBrand] = useState("");
+const [newType, setNewType] = useState("Cleanser");
 
   // Filter products according to search
   const filteredProducts = products.filter((product) =>
@@ -114,6 +121,27 @@ function MyProducts() {
 
     setProducts(updatedProducts);
   }
+  function addProduct() {
+  if (!newName.trim() || !newBrand.trim()) {
+    alert("Please enter product name and brand.");
+    return;
+  }
+
+  const newProduct = {
+    id: Date.now(),
+    name: newName,
+    brand: newBrand,
+    type: newType,
+    image: "/products/mostorising.png",
+  };
+
+  setProducts([...products, newProduct]);
+
+  setNewName("");
+  setNewBrand("");
+  setNewType("Cleanser");
+  setShowForm(false);
+}
 
   return (
     <div className="products-page">
@@ -133,7 +161,7 @@ function MyProducts() {
           </p>
         </div>
 
-        <div className="header-rose">🌹</div>
+    
       </section>
 
 
@@ -141,7 +169,7 @@ function MyProducts() {
       <section className="products-tools">
 
         <div className="products-count">
-          📦 {products.length} Products
+           {products.length} Products
         </div>
 
         <input
@@ -152,7 +180,40 @@ function MyProducts() {
         />
 
       </section>
+{showForm && (
+  <div className="add-product-form">
+    <h2>Add New Product</h2>
 
+    <input
+      type="text"
+      placeholder="Product name"
+      value={newName}
+      onChange={(event) => setNewName(event.target.value)}
+    />
+
+    <input
+      type="text"
+      placeholder="Brand"
+      value={newBrand}
+      onChange={(event) => setNewBrand(event.target.value)}
+    />
+
+    <select
+      value={newType}
+      onChange={(event) => setNewType(event.target.value)}
+    >
+      <option value="Cleanser">Cleanser</option>
+      <option value="Moisturizer">Moisturizer</option>
+      <option value="Serum">Serum</option>
+      <option value="Toner">Toner</option>
+      <option value="Sunscreen">Sunscreen</option>
+    </select>
+
+    <button onClick={addProduct}>
+      Save Product
+    </button>
+  </div>
+)}
 
       {/* PRODUCTS */}
       <section className="products-grid">
