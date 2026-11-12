@@ -114,6 +114,11 @@ function MyProducts() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 const [cart, setCart] = useState([]);
+const [showCheckout, setShowCheckout] = useState(false);
+const [paymentMethod, setPaymentMethod] = useState("Cash");
+const [deliveryAddress, setDeliveryAddress] = useState("");
+const [phoneNumber, setPhoneNumber] = useState("");
+
   // Add product form states
   const [showForm, setShowForm] = useState(false);
   const [newName, setNewName] = useState("");
@@ -186,6 +191,31 @@ const [cart, setCart] = useState([]);
     setNewType("Cleanser");
     setShowForm(false);
   }
+  function placeOrder() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  if (!deliveryAddress.trim() || !phoneNumber.trim()) {
+    alert("Please enter your address and phone number.");
+    return;
+  }
+
+  alert(
+    `Order placed successfully!\n
+Payment: ${paymentMethod}\n
+Address: ${deliveryAddress}\n
+Phone: ${phoneNumber}\n
+Total: $${totalPrice.toFixed(2)}`
+  );
+
+  setCart([]);
+  setDeliveryAddress("");
+  setPhoneNumber("");
+  setPaymentMethod("Cash");
+  setShowCheckout(false);
+}
 
   return (
     <div className="products-page">
@@ -286,15 +316,73 @@ const [cart, setCart] = useState([]);
         </div>
       )}
 {/* SHOPPING CART */}
+{/* SHOPPING CART */}
 <section className="cart-summary">
-  <h2>My Shopping Cart </h2>
+  <h2>My Shopping Cart</h2>
 
   <p>Items in cart: {cart.length}</p>
 
   <h3>
     Total: ${totalPrice.toFixed(2)}
   </h3>
+
+  <button
+    type="button"
+    className="checkout-button"
+    onClick={() => setShowCheckout(true)}
+    disabled={cart.length === 0}
+  >
+    Proceed to Checkout
+  </button>
 </section>
+
+{/* CHECKOUT FORM */}
+{showCheckout && (
+  <div className="checkout-form">
+    <h2>Complete Your Order</h2>
+
+    <label>Payment Method</label>
+
+    <select
+      value={paymentMethod}
+      onChange={(event) =>
+        setPaymentMethod(event.target.value)
+      }
+    >
+      <option value="Cash">Cash</option>
+      <option value="Card">Card</option>
+    </select>
+
+    <label>Home Delivery Address</label>
+
+    <textarea
+      placeholder="Enter your full home address..."
+      value={deliveryAddress}
+      onChange={(event) =>
+        setDeliveryAddress(event.target.value)
+      }
+    />
+
+    <label>Phone Number</label>
+
+    <input
+      type="tel"
+      placeholder="Enter your phone number"
+      value={phoneNumber}
+      onChange={(event) =>
+        setPhoneNumber(event.target.value)
+      }
+    />
+
+    <button
+      type="button"
+      className="checkout-button"
+      onClick={placeOrder}
+    >
+      Place Order
+    </button>
+  </div>
+)}
       {/* PRODUCTS */}
       <section className="products-grid">
         {filteredProducts.length > 0 ? (
@@ -321,7 +409,7 @@ const [cart, setCart] = useState([]);
 
                 <p>{product.brand}</p>
 
-                <p>{product.brand}</p>
+              
 
 <p className="product-price">
 
