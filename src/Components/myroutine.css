@@ -1,0 +1,81 @@
+
+/* MY ROUTINE PAGE */
+.routine-page {
+  min-height: 100vh;
+  padding: 35px;
+  background-color: #f8e8e8;
+  font-family: Arial, sans-serif;
+  color: #3e2c28;
+}
+
+/* HEADER */
+.routine-header {
+  margin-bottom: 35px;
+}
+
+.routine-header h1 {
+  font-size: 32px;
+  color: #7e5c4b;
+  margin: 12px 0;
+}
+
+.routine-header p {
+  color: #8b7770;
+  font-size: 15px;
+}
+
+.routine-header p:first-child {
+  color: #bd858c;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* ROUTINE SECTIONS */
+.routine-sections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.routine-card {
+  background-color: #f3dddd;
+  border: 1px solid #e8c3c6;
+  border-radius: 20px;
+  padding: 28px;
+  min-height: 180px;
+  box-shadow: 0 4px 15px rgba(126, 92, 75, 0.08);
+  transition: 0.3s;
+}
+
+.routine-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 7px 20px rgba(126, 92, 75, 0.14);
+}
+
+.routine-card h2 {
+  color: #7e5c4b;
+  font-size: 22px;
+  margin-bottom: 18px;
+}
+
+.routine-card p {
+  color: #8b7770;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* MOBILE */
+@media (max-width: 650px) {
+  .routine-page {
+    padding: 20px;
+  }
+
+  .routine-sections {
+    grid-template-columns: 1fr;
+  }
+
+  .routine-card {
+    padding: 22px;
+  }
+}
