@@ -1,5 +1,4 @@
 
-/* MY ROUTINE PAGE */
 .routine-page {
   min-height: 100vh;
   padding: 35px;
@@ -8,7 +7,7 @@
   color: #3e2c28;
 }
 
-/* HEADER */
+/* Header */
 .routine-header {
   margin-bottom: 35px;
 }
@@ -31,7 +30,7 @@
   letter-spacing: 2px;
 }
 
-/* ROUTINE SECTIONS */
+/* Routine Cards */
 .routine-sections {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -65,7 +64,111 @@
   line-height: 1.7;
 }
 
-/* MOBILE */
+/* Tasks */
+.routine-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.routine-task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background-color: #fffaf8;
+  border: 1px solid #e8c3c6;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.routine-task:hover {
+  background-color: #f8e8e8;
+}
+
+.routine-task input {
+  width: 18px;
+  height: 18px;
+  accent-color: #bd858c;
+  cursor: pointer;
+}
+
+.routine-task span {
+  flex: 1;
+  color: #7e5c4b;
+  font-size: 15px;
+}
+
+.routine-task .completed {
+  text-decoration: line-through;
+  color: #a88b85;
+}
+
+/* Remove Button */
+.remove-task {
+  background-color: transparent;
+  border: none;
+  color: #bd858c;
+  font-size: 23px;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: 0.3s;
+}
+
+.remove-task:hover {
+  color: #8f4f59;
+  transform: scale(1.2);
+}
+
+/* Add Task */
+.add-task {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.add-task input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid #d9a6aa;
+  border-radius: 10px;
+  background-color: #fffaf8;
+  color: #7e5c4b;
+  font-size: 14px;
+  outline: none;
+}
+
+.add-task input:focus {
+  border-color: #bd858c;
+  box-shadow: 0 0 5px rgba(189, 133, 140, 0.25);
+}
+
+.add-task button {
+  padding: 12px 18px;
+  background-color: #d9a6aa;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-task button:hover {
+  background-color: #bd858c;
+}
+
+/* Progress */
+.routine-card .routine-progress {
+  margin-top: 22px;
+  padding-top: 15px;
+  border-top: 1px solid #e8c3c6;
+  color: #bd858c;
+  font-weight: bold;
+}
+
+/* Responsive Design */
 @media (max-width: 650px) {
   .routine-page {
     padding: 20px;
@@ -77,5 +180,11 @@
 
   .routine-card {
     padding: 22px;
+  }
+}
+
+@media (max-width: 450px) {
+  .add-task {
+    flex-direction: column;
   }
 }
