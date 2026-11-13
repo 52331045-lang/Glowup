@@ -376,3 +376,32 @@
   background-color: #c9b5ae;
   cursor: not-allowed;
 }
+/* PAYMENT OPTIONS */
+.payment-options {
+  display: flex;
+  gap: 15px;
+  margin: 10px 0 20px;
+}
+
+.payment-options button {
+  flex: 1;
+  padding: 14px;
+  border: 2px solid #d9a6aa;
+  border-radius: 12px;
+  background-color: #fffaf8;
+  color: #7e5c4b;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-options button:hover {
+  background-color: #f3dddd;
+}
+
+.payment-options button.selected {
+  background-color: #7e5c4b;
+  color: white;
+  border-color: #7e5c4b;
+}
