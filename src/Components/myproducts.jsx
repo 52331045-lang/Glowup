@@ -272,7 +272,7 @@ Total: $${totalPrice.toFixed(2)}`
           "Moisturizer",
           "Serum",
           "Toner",
-          "Sunscreen",
+          
         ].map((category) => (
           <button
             type="button"
@@ -359,6 +359,14 @@ Total: $${totalPrice.toFixed(2)}`
         <h2>My Shopping Cart</h2>
 
         <p>Items in cart: {cart.length}</p>
+        <div className="cart-items">
+  {cart.map((product, index) => (
+    <div className="cart-item" key={`${product.id}-${index}`}>
+      <span>{product.name}</span>
+      <span>${product.price.toFixed(2)}</span>
+    </div>
+  ))}
+</div>
 
         <h3>
           Total: ${totalPrice.toFixed(2)}
