@@ -122,7 +122,11 @@
   max-width: 470px;
   margin-bottom: 22px;
 }
-
+.dashboard {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
 .dashboard-primary-button {
   border: none;
   border-radius: 9px;

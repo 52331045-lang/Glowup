@@ -1,6 +1,6 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import "./App.css";
 import Sidebar from "./Components/Sidebar";
 import Dashboard from "./Components/Dashboard";
 import MyRoutine from "./Components/MyRoutine";
