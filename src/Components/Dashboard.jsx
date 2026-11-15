@@ -1,211 +1,363 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
+
+// Default tasks are used only when no saved routine exists.
+const defaultMorningTasks = [
+  { id: 1, name: "Cleanser", done: false },
+  { id: 2, name: "Toner", done: false },
+  { id: 3, name: "Serum", done: false },
+  { id: 4, name: "Moisturizer", done: false },
+  { id: 5, name: "Sunscreen", done: false },
+];
+
+const defaultEveningTasks = [
+  { id: 1, name: "Cleanser", done: false },
+  { id: 2, name: "Toner", done: false },
+  { id: 3, name: "Serum", done: false },
+  { id: 4, name: "Moisturizer", done: false },
+];
+
+const defaultDailyTasks = [
+  { id: 1, name: "Drink enough water", done: false },
+  { id: 2, name: "Avoid touching your face", done: false },
+  { id: 3, name: "Change your pillowcase regularly", done: false },
+];
+
+function getSavedTasks(key, defaultTasks) {
+  try {
+    const savedTasks = localStorage.getItem(key);
+
+    if (!savedTasks) {
+      return defaultTasks;
+    }
+
+    const parsedTasks = JSON.parse(savedTasks);
+
+    return Array.isArray(parsedTasks) ? parsedTasks : defaultTasks;
+  } catch {
+    return defaultTasks;
+  }
+}
 
 function Dashboard() {
   const navigate = useNavigate();
 
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "Cleanse your face", time: "Morning", completed: true },
-    { id: 2, name: "Apply moisturizer", time: "Morning", completed: true },
-    { id: 3, name: "Apply sunscreen SPF 30", time: "Morning", completed: false },
-    { id: 4, name: "Drink enough water", time: "Daily", completed: false },
-    { id: 5, name: "Remove makeup before bed", time: "Evening", completed: false },
-  ]);
-
-  const completedTasks = tasks.filter(
-    (task) => task.completed
-  ).length;
-
-  const progress = Math.round(
-    (completedTasks / tasks.length) * 100
+  const [morningTasks, setMorningTasks] = useState(() =>
+    getSavedTasks("glowupMorningTasks", defaultMorningTasks)
   );
 
-  function toggleTask(id) {
-    setTasks((previousTasks) =>
-      previousTasks.map((task) =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
+  const [eveningTasks, setEveningTasks] = useState(() =>
+    getSavedTasks("glowupEveningTasks", defaultEveningTasks)
+  );
+
+  const [dailyTasks, setDailyTasks] = useState(() =>
+    getSavedTasks("glowupDashboardDailyTasks", defaultDailyTasks)
+  );
+
+  // Save the same morning and evening tasks used by My Routine.
+  useEffect(() => {
+    localStorage.setItem(
+      "glowupMorningTasks",
+      JSON.stringify(morningTasks)
     );
-  }
+  }, [morningTasks]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "glowupEveningTasks",
+      JSON.stringify(eveningTasks)
+    );
+  }, [eveningTasks]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "glowupDashboardDailyTasks",
+      JSON.stringify(dailyTasks)
+    );
+  }, [dailyTasks]);
+
+  const toggleTask = (group, taskId) => {
+    if (group === "morning") {
+      setMorningTasks((previousTasks) =>
+        previousTasks.map((task) =>
+          task.id === taskId
+            ? { ...task, done: !task.done }
+            : task
+        )
+      );
+    }
+
+    if (group === "evening") {
+      setEveningTasks((previousTasks) =>
+        previousTasks.map((task) =>
+          task.id === taskId
+            ? { ...task, done: !task.done }
+            : task
+        )
+      );
+    }
+
+    if (group === "daily") {
+      setDailyTasks((previousTasks) =>
+        previousTasks.map((task) =>
+          task.id === taskId
+            ? { ...task, done: !task.done }
+            : task
+        )
+      );
+    }
+  };
+
+  const allTasks = [
+    ...morningTasks,
+    ...eveningTasks,
+    ...dailyTasks,
+  ];
+
+  const completedTasks = allTasks.filter((task) => task.done).length;
+  const totalTasks = allTasks.length;
+
+  const progress =
+    totalTasks === 0
+      ? 0
+      : Math.round((completedTasks / totalTasks) * 100);
+
+  const morningCompleted = morningTasks.filter(
+    (task) => task.done
+  ).length;
+
+  const eveningCompleted = eveningTasks.filter(
+    (task) => task.done
+  ).length;
+
+  const renderTaskList = (tasks, group) => (
+    <div className="dashboard-task-list">
+      {tasks.length === 0 ? (
+        <p className="empty-tasks">No tasks added yet.</p>
+      ) : (
+        tasks.map((task) => (
+          <label
+            className={`dashboard-task ${
+              task.done ? "task-is-done" : ""
+            }`}
+            key={`${group}-${task.id}`}
+          >
+            <input
+              type="checkbox"
+              checked={Boolean(task.done)}
+              onChange={() => toggleTask(group, task.id)}
+            />
+
+            <span className="dashboard-custom-check"></span>
+
+            <span className="dashboard-task-name">
+              {task.name}
+            </span>
+          </label>
+        ))
+      )}
+    </div>
+  );
 
   return (
     <div className="dashboard">
 
       {/* Top Bar */}
       <header className="dashboard-topbar">
-        <div className="search-container">
-          <span>⌕</span>
-          <input type="text" placeholder="Search..." />
+        <div className="dashboard-topbar-text">
+          <span className="topbar-small-text">YOUR SKINCARE SPACE</span>
+          <h2>GlowUp</h2>
         </div>
 
-        <div className="profile-container">
-          <button className="notification-button">♡</button>
+        <div className="dashboard-profile">
+          <div className="profile-avatar">G</div>
 
-          <div className="profile-avatar">S</div>
-
-          <div className="profile-info">
-            <h4>Sara</h4>
-            <p>My Account</p>
+          <div className="profile-details">
+            <span className="profile-name">Welcome back!</span>
+            <span className="profile-subtitle">Your daily glow journey</span>
           </div>
         </div>
       </header>
 
       {/* Welcome Section */}
-      <section className="welcome-section">
+      <section className="dashboard-welcome">
         <div className="welcome-content">
-          <span className="welcome-label">
-            YOUR SKINCARE JOURNEY
-          </span>
+          <span className="welcome-label">A LITTLE CARE EVERY DAY</span>
 
-          <h1>Good morning, Sara! <span>♡</span></h1>
+          <h1>Your skin deserves some love.</h1>
 
           <p>
-            A little care goes a long way.
-            Let's make today beautiful.
+            Take a moment for yourself, follow your routine,
+            and celebrate every little step towards healthier skin.
           </p>
 
           <button
-            className="primary-button"
+            className="dashboard-primary-button"
             onClick={() => navigate("/routine")}
           >
-            Explore My Routine →
+            View My Routine
+            <span>→</span>
           </button>
         </div>
 
-        <div className="welcome-flower">✿</div>
+        <div className="welcome-decoration" aria-hidden="true">
+          <span className="decoration-flower">✿</span>
+          <span className="decoration-sparkle">✧</span>
+          <span className="decoration-circle"></span>
+        </div>
       </section>
 
       {/* Statistics */}
       <section className="dashboard-stats">
 
-        <div className="stat-card">
-          <div className="stat-card-top">
-            <span className="stat-symbol">✓</span>
-            <span className="stat-tag">Today</span>
+        <div className="dashboard-stat-card">
+          <div className="stat-icon">♡</div>
+          <div>
+            <p className="stat-label">Completed Tasks</p>
+            <h3>{completedTasks}/{totalTasks}</h3>
+            <span className="stat-description">Your daily achievements</span>
           </div>
-          <h2>{completedTasks}/{tasks.length}</h2>
-          <p>Tasks Completed</p>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-card-top">
-            <span className="stat-symbol">♡</span>
-            <span className="stat-tag">Daily Goal</span>
+        <div className="dashboard-stat-card">
+          <div className="stat-icon">☀</div>
+          <div>
+            <p className="stat-label">Morning Routine</p>
+            <h3>{morningCompleted}/{morningTasks.length}</h3>
+            <span className="stat-description">Morning steps completed</span>
           </div>
-          <h2>6/8</h2>
-          <p>Glasses of Water</p>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-card-top">
-            <span className="stat-symbol">☾</span>
-            <span className="stat-tag">Last Night</span>
+        <div className="dashboard-stat-card">
+          <div className="stat-icon">☾</div>
+          <div>
+            <p className="stat-label">Evening Routine</p>
+            <h3>{eveningCompleted}/{eveningTasks.length}</h3>
+            <span className="stat-description">Evening steps completed</span>
           </div>
-          <h2>7.5h</h2>
-          <p>Sleep Duration</p>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-card-top">
-            <span className="stat-symbol">✿</span>
-            <span className="stat-tag">Consistency</span>
-          </div>
-          <h2>12 days</h2>
-          <p>Self Care Streak</p>
         </div>
 
       </section>
 
-      {/* Main Content */}
-      <section className="dashboard-main">
+      {/* Main Dashboard Content */}
+      <main className="dashboard-main">
 
-        {/* Daily Routine */}
-        <div className="routine-card">
+        <section className="dashboard-routines">
 
-          <div className="card-heading">
+          <div className="dashboard-section-heading">
             <div>
-              <span className="section-label">STAY CONSISTENT</span>
-              <h2>Today's Routine</h2>
+              <span className="section-eyebrow">YOUR DAILY CARE</span>
+              <h2>Today's Tasks</h2>
               <p>Small steps make a big difference.</p>
             </div>
 
             <button
-              className="text-button"
+              className="dashboard-text-button"
               onClick={() => navigate("/routine")}
             >
-              View All →
+              Full Routine →
             </button>
           </div>
 
-          <div className="routine-list">
-            {tasks.map((task) => (
-              <label className="routine-item" key={task.id}>
+          <div className="dashboard-routine-card">
+            <div className="routine-card-heading">
+              <div className="routine-heading-icon morning-heading-icon">
+                ☀
+              </div>
 
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => toggleTask(task.id)}
-                />
+              <div>
+                <h3>Morning Routine</h3>
+                <span>Start your day with care</span>
+              </div>
+            </div>
 
-                <span className="custom-checkbox"></span>
-
-                <div className="routine-task-info">
-                  <span className={task.completed ? "task-completed" : ""}>
-                    {task.name}
-                  </span>
-                  <small>{task.time}</small>
-                </div>
-
-                <span className="task-status">
-                  {task.completed ? "Done" : "Pending"}
-                </span>
-
-              </label>
-            ))}
+            {renderTaskList(morningTasks, "morning")}
           </div>
 
-        </div>
+          <div className="dashboard-routine-card">
+            <div className="routine-card-heading">
+              <div className="routine-heading-icon evening-heading-icon">
+                ☾
+              </div>
 
-        {/* Progress */}
-        <div className="progress-card">
+              <div>
+                <h3>Evening Routine</h3>
+                <span>Give your skin some rest</span>
+              </div>
+            </div>
 
-          <span className="section-label">YOUR PROGRESS</span>
-          <h2>Daily Progress</h2>
+            {renderTaskList(eveningTasks, "evening")}
+          </div>
+
+          <div className="dashboard-routine-card">
+            <div className="routine-card-heading">
+              <div className="routine-heading-icon daily-heading-icon">
+                ♡
+              </div>
+
+              <div>
+                <h3>Daily Healthy Habits</h3>
+                <span>Healthy habits, healthy skin</span>
+              </div>
+            </div>
+
+            {renderTaskList(dailyTasks, "daily")}
+          </div>
+
+        </section>
+
+        {/* Progress Card */}
+        <aside className="dashboard-progress-card">
+          <span className="section-eyebrow">KEEP IT UP</span>
+          <h2>Your Daily Progress</h2>
 
           <div
-            className="progress-circle"
-            style={{
-              background: `conic-gradient(#bd8990 ${progress}%, #eee5e1 ${progress}% 100%)`
-            }}
+            className="dashboard-progress-circle"
+            style={{ "--progress": `${progress}%` }}
           >
-            <div className="progress-circle-inner">
-              <h2>{progress}%</h2>
+            <div className="progress-circle-content">
+              <strong>{progress}%</strong>
               <span>Completed</span>
             </div>
           </div>
 
-          <p className="progress-description">
-            You've completed {completedTasks} out of {tasks.length} tasks today.
+          <p className="progress-message">
+            {progress === 100
+              ? "Amazing! You completed all your tasks today."
+              : progress === 0
+              ? "Your glow journey starts with one small step."
+              : "You're doing great! Keep taking care of yourself."}
           </p>
 
+          <div className="progress-details">
+            <div>
+              <span>Completed</span>
+              <strong>{completedTasks}</strong>
+            </div>
+
+            <div>
+              <span>Remaining</span>
+              <strong>{totalTasks - completedTasks}</strong>
+            </div>
+          </div>
+
           <button
-            className="secondary-button"
+            className="dashboard-secondary-button"
             onClick={() => navigate("/habits")}
           >
-            View My Habits →
+            Explore Skincare Tips
+            <span>→</span>
           </button>
+        </aside>
 
-        </div>
+      </main>
 
-      </section>
-
-      {/* Bottom Message */}
+      {/* Footer */}
       <footer className="dashboard-footer">
-        <span>GlowUp ♡</span>
-        <p>Take care of your skin, one day at a time.</p>
+        <p>Made with ♡ for your skin and your self-care journey.</p>
+        <span>GlowUp © 2026</span>
       </footer>
 
     </div>
