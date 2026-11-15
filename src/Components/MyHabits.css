@@ -1,0 +1,386 @@
+
+.habits-page {
+  min-height: 100vh;
+  padding: 35px 40px;
+  background: #fcf9f7;
+  color: #76565a;
+  box-sizing: border-box;
+}
+
+/* Header */
+
+.habits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.habits-eyebrow,
+.section-eyebrow {
+  color: #b58b89;
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.habits-header h1 {
+  font-size: 32px;
+  margin: 10px 0;
+  color: #76565a;
+}
+
+.habits-header p {
+  font-size: 14px;
+  color: #a58b87;
+}
+
+.habits-header-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 20px;
+  background: #f3e6e2;
+  color: #b98287;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 38px;
+}
+
+/* Progress */
+
+.habits-progress-card {
+  background: #f2e6e2;
+  padding: 25px 28px;
+  border-radius: 18px;
+  margin-bottom: 35px;
+}
+
+.progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.progress-top h2 {
+  font-size: 21px;
+  margin: 8px 0;
+}
+
+.progress-top p {
+  font-size: 13px;
+  color: #a58b87;
+}
+
+.progress-number {
+  font-size: 32px;
+  font-weight: 600;
+  color: #a66f75;
+}
+
+.habits-progress-track {
+  height: 10px;
+  background: #e3d1cc;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.habits-progress-fill {
+  height: 100%;
+  background: #b98287;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+.progress-message {
+  color: #987a77;
+  font-size: 12px;
+  margin-top: 13px;
+}
+
+/* Section Headings */
+
+.habits-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.habits-section-heading h2 {
+  font-size: 21px;
+  margin: 8px 0;
+}
+
+.habits-section-heading p {
+  font-size: 13px;
+  color: #a58b87;
+}
+
+.habits-count {
+  background: #f3e8e4;
+  color: #a66f75;
+  padding: 8px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* Daily Routines */
+
+.habits-routines {
+  margin-bottom: 38px;
+}
+
+.habits-routine-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.routine-box {
+  background: white;
+  border: 1px solid #f0e5e1;
+  padding: 23px;
+  border-radius: 17px;
+}
+
+.routine-box-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.routine-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.morning-icon {
+  background: #f8eee2;
+  color: #bd9464;
+}
+
+.evening-icon {
+  background: #f0eaf3;
+  color: #9580a4;
+}
+
+.routine-box-title h3 {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.routine-box-title p {
+  color: #ad9691;
+  font-size: 11px;
+}
+
+.habit-check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-top: 1px solid #f4eeeb;
+  font-size: 12px;
+  color: #806d69;
+  cursor: pointer;
+}
+
+.habit-check-item input {
+  display: none;
+}
+
+.habit-custom-check {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  border: 1.5px solid #d7b9b4;
+  border-radius: 6px;
+  position: relative;
+}
+
+.habit-check-item input:checked + .habit-custom-check {
+  background: #b98287;
+  border-color: #b98287;
+}
+
+.habit-check-item input:checked + .habit-custom-check::after {
+  content: "✓";
+  color: white;
+  position: absolute;
+  left: 3px;
+  top: 0;
+  font-size: 13px;
+}
+
+.habit-done {
+  text-decoration: line-through;
+  color: #b49b96;
+}
+
+/* Skincare Tips */
+
+.skincare-tips-section {
+  margin-bottom: 35px;
+}
+
+.skincare-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.skincare-tip-card {
+  background: white;
+  border: 1px solid #f0e5e1;
+  border-radius: 16px;
+  padding: 22px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skincare-tip-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(130, 90, 85, 0.07);
+}
+
+.tip-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6eeeb;
+  border-radius: 13px;
+  font-size: 21px;
+  margin-bottom: 15px;
+}
+
+.skincare-tip-card h3 {
+  font-size: 14px;
+  margin-bottom: 9px;
+  color: #76565a;
+}
+
+.skincare-tip-card p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #a18a85;
+}
+
+/* Healthy Skin */
+
+.healthy-skin-card {
+  display: flex;
+  gap: 20px;
+  background: #f3eae6;
+  padding: 25px;
+  border-radius: 17px;
+  margin-bottom: 25px;
+}
+
+.healthy-skin-icon {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e8d5d0;
+  color: #a66f75;
+  border-radius: 14px;
+  font-size: 25px;
+}
+
+.healthy-skin-card h2 {
+  font-size: 19px;
+  margin: 8px 0 13px;
+}
+
+.healthy-skin-card ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.healthy-skin-card li {
+  color: #907975;
+  font-size: 12px;
+  line-height: 2;
+}
+
+/* Reminder */
+
+.habits-reminder {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: white;
+  border: 1px solid #f0e5e1;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.habits-reminder > span {
+  font-size: 28px;
+  color: #bd9294;
+}
+
+.habits-reminder h3 {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.habits-reminder p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #a58b87;
+}
+
+/* Responsive */
+
+@media (max-width: 850px) {
+  .habits-routine-grid,
+  .skincare-tips-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .habits-page {
+    padding: 25px 17px;
+  }
+
+  .habits-header h1 {
+    font-size: 27px;
+  }
+
+  .habits-header-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+  }
+
+  .habits-progress-card,
+  .routine-box,
+  .skincare-tip-card,
+  .healthy-skin-card {
+    padding: 18px;
+  }
+
+  .progress-top h2 {
+    font-size: 18px;
+  }
+
+  .progress-number {
+    font-size: 26px;
+  }
+}

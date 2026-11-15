@@ -2,12 +2,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Sidebar from "./Components/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import MyRoutine from "./pages/MyRoutine";
-import MyHabits from "./pages/MyHabits";
-import MyProducts from "./pages/MyProducts";
-import ContactUs from "./pages/ContactUs";
-
+import Dashboard from "./Components/Dashboard";
+import MyRoutine from "./Components/MyRoutine";
+import MyHabits from "./Components/MyHabits";
+import MyProducts from "./Components/myproducts";
+import ContactUs from "./Components/ContactUs";
 function App() {
   return (
     <BrowserRouter>
@@ -23,7 +22,7 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
           </Routes>
         </main>
-      </div>
+              </div>
     </BrowserRouter>
   );
 }
