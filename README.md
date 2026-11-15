@@ -60,11 +60,11 @@ Open the local URL displayed in your terminal.
 
 ### Dashboard
 
-![GlowUp Dashboard](./src/Components/Screenshots/Home%20with%20Dashboard%20Page.png)
+![GlowUp Dashboard](./src/Components/Screenshots/Dashboard.png)
 
 ### My Routine
 
-![GlowUp My Routine](./src/Components/Screenshots/MyRoutine%20Page.png)
+![GlowUp My Routine](./src/Components/Screenshots/MyRoutine.png)
 
 ### My Habits
 
@@ -72,11 +72,17 @@ Open the local URL displayed in your terminal.
 
 ### My Products
 
-![GlowUp My Products](./src/Components/Screenshots/Products%20Page.png)
+![GlowUp My Products](./src/Components/Screenshots/Products.png)
 
 ### Progress
 
-![GlowUp Progress](./src/Components/Screenshots/Progress%20Page.png)
+![GlowUp Progress](./src/Components/Screenshots/Progress.png)
+
+### Contact Us
+
+![GlowUp ContactUs](./src/Components/Screenshots/ContactUs.png)
+
+
 
 ## Team Members
 
