@@ -1,0 +1,243 @@
+
+/* ==============================
+   SIDEBAR
+============================== */
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  padding: 28px 19px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: #fffaf8;
+  border-right: 1px solid #e8c3c6;
+
+  font-family: Arial, sans-serif;
+  color: #3e2c28;
+  box-sizing: border-box;
+}
+
+/* ==============================
+   BRAND / LOGO
+============================== */
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 5px 30px;
+  border-bottom: 1px solid #f0dddd;
+}
+
+.sidebar-logo {
+  width: 43px;
+  height: 43px;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #bd858c;
+  color: #fffaf8;
+
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.sidebar-brand-text h2 {
+  margin: 0 0 5px;
+  color: #7e5c4b;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.sidebar-brand-text span {
+  color: #bd858c;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: 1.3px;
+}
+
+/* ==============================
+   NAVIGATION
+============================== */
+
+.sidebar-navigation {
+  margin-top: 32px;
+}
+
+.sidebar-section-title {
+  color: #a18e87;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 0 15px 12px;
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-link {
+  min-height: 47px;
+  padding: 0 13px;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  text-decoration: none;
+  color: #8b7770;
+
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
+
+.sidebar-link:hover {
+  background-color: #f8e8e8;
+  color: #7e5c4b;
+  transform: translateX(3px);
+}
+
+.sidebar-link-icon {
+  width: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 21px;
+  color: #bd858c;
+}
+
+.sidebar-link-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sidebar-active-dot {
+  width: 6px;
+  height: 6px;
+  margin-left: auto;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+/* Active Link */
+
+.sidebar-link.active {
+  background-color: #f3dddd;
+  color: #7e5c4b;
+  font-weight: bold;
+}
+
+.sidebar-link.active .sidebar-link-icon {
+  color: #a96e77;
+}
+
+.sidebar-link.active .sidebar-active-dot {
+  background-color: #bd858c;
+}
+
+/* ==============================
+   BOTTOM INFORMATION CARD
+============================== */
+
+.sidebar-bottom {
+  position: relative;
+  overflow: hidden;
+
+  margin-top: auto;
+  padding: 19px 15px;
+
+  background-color: #f3dddd;
+  border: 1px solid #e8c3c6;
+  border-radius: 15px;
+}
+
+.sidebar-bottom-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #fffaf8;
+  color: #bd858c;
+  font-size: 20px;
+}
+
+.sidebar-bottom h3 {
+  color: #7e5c4b;
+  font-size: 14px;
+  margin: 12px 0 7px;
+}
+
+.sidebar-bottom p {
+  color: #8b7770;
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 165px;
+}
+
+.sidebar-decoration {
+  position: absolute;
+  right: 8px;
+  bottom: -13px;
+  font-size: 65px;
+  color: #d9a6aa;
+  opacity: 0.55;
+}
+
+/* ==============================
+   FOOTER
+============================== */
+
+.sidebar-footer {
+  text-align: center;
+  padding-top: 18px;
+}
+
+.sidebar-footer p {
+  color: #bd858c;
+  font-size: 11px;
+  margin: 0 0 5px;
+}
+
+.sidebar-footer span {
+  color: #a18e87;
+  font-size: 9px;
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 210px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+@media (max-height: 650px) {
+  .sidebar {
+    overflow-y: auto;
+  }
+
+  .sidebar-bottom {
+    margin-top: 25px;
+  }
+}
