@@ -1,16 +1,92 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# GlowUp 🌸
 
-Currently, two official plugins are available:
+## About the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+GlowUp is a skincare and self-care web application designed to help users organize their skincare routines, track daily habits, and manage their skincare products.
 
-## React Compiler
+The application provides a simple and user-friendly experience that encourages users to maintain consistent skincare habits and take better care of themselves.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Dashboard to view daily skincare activities and progress.
+- Morning and evening skincare routines.
+- Daily skincare habits tracking.
+- Skincare products browsing and management.
+- Progress tracking to monitor completed tasks.
+- Contact Us page.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+- React.js
+- JavaScript
+- HTML5
+- CSS3
+- React Router
+- Vite
+- Git and GitHub
+
+## Installation and Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/52331045-lang/Glowup.git
+```
+
+### 2. Navigate to the project folder
+
+```bash
+cd Glowup
+```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Start the development server
+
+```bash
+npm run dev
+```
+
+### 5. Open the application
+
+Open the local URL displayed in your terminal.
+
+## Screenshots
+
+### Dashboard
+
+![GlowUp Dashboard](./src/Components/Screenshots/Home%20with%20Dashboard%20Page.png)
+
+### My Routine
+
+![GlowUp My Routine](./src/Components/Screenshots/MyRoutine%20Page.png)
+
+### My Habits
+
+![GlowUp My Habits](./src/Components/Screenshots/MyHabits.png)
+
+### My Products
+
+![GlowUp My Products](./src/Components/Screenshots/Products%20Page.png)
+
+### Progress
+
+![GlowUp Progress](./src/Components/Screenshots/Progress%20Page.png)
+
+## Team Members
+
+- Student 1: Aya Abed
+- Student 2: Sana Arbass
+
+## Course Information
+
+**Course:** CSCI426 – Advanced Web Programming
+
+**University:** Lebanese International University
+
+**Project:** GlowUp
